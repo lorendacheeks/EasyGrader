@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Grader</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f4f4f9;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Easy Grader</h1>
+        <form id="graderForm">
+            <div class="mb-3">
+                <label for="totalItems" class="form-label">Total Items</label>
+                <input type="number" class="form-control" id="totalItems" required />
+            </div>
+            <div class="mb-3">
+                <label for="missedItems" class="form-label">Items Missed</label>
+                <input type="number" class="form-control" id="missedItems" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate Grade</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+        document.getElementById('graderForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let totalItems = parseInt(document.getElementById('totalItems').value);
+            let missedItems = parseInt(document.getElementById('missedItems').value);
+
+            // Calculate percentage score
+            let score = ((totalItems - missedItems) / totalItems) * 100;
+
+            // Determine letter grade
+            let grade;
+            if (score >= 90) {
+                grade = 'A';
+            } else if (score >= 80) {
+                grade = 'B';
+            } else if (score >= 70) {
+                grade = 'C';
+            } else if (score >= 60) {
+                grade = 'D';
+            } else {
+                grade = 'F';
+            }
+
+            // Display result
+            document.getElementById('result').innerHTML = `Score: ${score.toFixed(2)}%<br>Grade: ${grade}`;
+        });
+    </script>
+</body>
+</html>
